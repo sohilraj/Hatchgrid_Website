@@ -1,2 +1,2 @@
-# HatchGrid
+# HatchGrid Website
 HatchGrid Website

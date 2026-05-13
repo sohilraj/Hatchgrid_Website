@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hatchgrid — Building Digital Products</title>
+    <meta name="description" content="Hatchgrid Private Limited builds mobile applications and digital platforms across fintech, education, gaming, and digital services.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #141414;
+            --border: #222222;
+            --text: #e8e8e8;
+            --text-muted: #888888;
+            --accent: #4ade80;
+            --accent-dim: #22c55e;
+            --accent-glow: rgba(74, 222, 128, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Subtle grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        nav {
+            padding: 32px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Space Mono', monospace;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text);
+            text-transform: uppercase;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 100px 0 80px;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            border: 1px solid rgba(74, 222, 128, 0.25);
+            padding: 6px 16px;
+            border-radius: 100px;
+            margin-bottom: 32px;
+            background: var(--accent-glow);
+        }
+
+        h1 {
+            font-size: clamp(36px, 6vw, 56px);
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        h1 span {
+            color: var(--accent);
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            max-width: 560px;
+            margin: 0 auto 48px;
+        }
+
+        /* What We Build */
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 40px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px 24px;
+            transition: border-color 0.3s, transform 0.3s;
+        }
+
+        .card:hover {
+            border-color: rgba(74, 222, 128, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .card-icon {
+            font-size: 28px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .card h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* About */
+        .about {
+            padding: 60px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .about-content p {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .stat {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .stat-value {
+            font-family: 'Space Mono', monospace;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Contact */
+        .contact {
+            padding: 60px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .contact p {
+            color: var(--text-muted);
+            margin-bottom: 32px;
+        }
+
+        .contact-email {
+            display: inline-block;
+            font-family: 'Space Mono', monospace;
+            font-size: 16px;
+            color: var(--accent);
+            text-decoration: none;
+            border: 1px solid rgba(74, 222, 128, 0.3);
+            padding: 14px 32px;
+            border-radius: 8px;
+            background: var(--accent-glow);
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .contact-email:hover {
+            background: rgba(74, 222, 128, 0.15);
+            transform: translateY(-1px);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer-company {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text);
+            margin-bottom: 16px;
+        }
+
+        .footer-details {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 2;
+        }
+
+        .footer-details a {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+
+        .footer-details a:hover {
+            color: var(--accent);
+        }
+
+        .footer-legal {
+            margin-top: 24px;
+            font-size: 11px;
+            color: #555;
+        }
+
+        /* Privacy & Terms pages anchor */
+        .legal-links {
+            margin-top: 16px;
+        }
+
+        .legal-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 12px;
+            margin: 0 12px;
+            transition: color 0.2s;
+        }
+
+        .legal-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .hero { padding: 60px 0 40px; }
+            .about-content { grid-template-columns: 1fr; }
+            .stat-grid { grid-template-columns: 1fr 1fr; }
+            nav { padding: 20px 0; }
+        }
+
+        /* Fade-in animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.6s ease forwards;
+        }
+
+        .fade-in:nth-child(1) { animation-delay: 0.1s; }
+        .fade-in:nth-child(2) { animation-delay: 0.2s; }
+        .fade-in:nth-child(3) { animation-delay: 0.3s; }
+        .fade-in:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <nav>
+            <div class="logo">Hatch<span>grid</span></div>
+            <a href="mailto:info@hatchgrid.in">Contact</a>
+        </nav>
+
+        <section class="hero">
+            <div class="badge">Building Digital Products</div>
+            <h1>We build apps that <span>solve real problems</span></h1>
+            <p class="subtitle">
+                Hatchgrid Private Limited designs, develops, and operates mobile applications 
+                and digital platforms across fintech, education, gaming, and digital services.
+            </p>
+        </section>
+
+        <section class="section">
+            <div class="section-title">What We Build</div>
+            <div class="grid">
+                <div class="card fade-in">
+                    <span class="card-icon">💳</span>
+                    <h3>Fintech</h3>
+                    <p>Smart tools to help consumers make better financial decisions with credit cards, rewards, and offers.</p>
+                </div>
+                <div class="card fade-in">
+                    <span class="card-icon">📚</span>
+                    <h3>Education</h3>
+                    <p>Digital learning platforms for competitive exam preparation and skill development.</p>
+                </div>
+                <div class="card fade-in">
+                    <span class="card-icon">🎮</span>
+                    <h3>Gaming</h3>
+                    <p>Interactive quiz and trivia experiences for entertainment and knowledge building.</p>
+                </div>
+                <div class="card fade-in">
+                    <span class="card-icon">⚡</span>
+                    <h3>Digital Services</h3>
+                    <p>Technology solutions leveraging AI, data analytics, and emerging digital innovations.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="about">
+            <div class="section-title">About Hatchgrid</div>
+            <div class="about-content">
+                <div>
+                    <p>
+                        Hatchgrid Private Limited is a technology company incorporated in India. 
+                        We design, develop, and publish mobile applications and digital platforms 
+                        that serve millions of users across multiple verticals.
+                    </p>
+                    <br>
+                    <p>
+                        Our team combines deep product expertise with cutting-edge technology 
+                        to build products that are intuitive, reliable, and impactful.
+                    </p>
+                </div>
+                <div class="stat-grid">
+                    <div class="stat">
+                        <div class="stat-value">4</div>
+                        <div class="stat-label">Products</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">2026</div>
+                        <div class="stat-label">Founded</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">IN</div>
+                        <div class="stat-label">Headquarters</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">∞</div>
+                        <div class="stat-label">Ambition</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact">
+            <h2>Get in Touch</h2>
+            <p>Interested in partnerships, collaborations, or have questions about our products?</p>
+            <a href="mailto:info@hatchgrid.in" class="contact-email">info@hatchgrid.in</a>
+        </section>
+
+        <footer>
+            <div class="footer-company">Hatchgrid Private Limited</div>
+            <div class="footer-details">
+                CIN: U62011HR2026PTC144822<br>
+                Registered Office: C-042C, 4th Floor, Desk 05, Supermart-1,<br>
+                Galleria DLF-IV, Gurgaon, Haryana 122009, India<br>
+                <a href="mailto:info@hatchgrid.in">info@hatchgrid.in</a>
+            </div>
+            <div class="legal-links">
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+                <a href="/support">Support</a>
+            </div>
+            <div class="footer-legal">
+                © 2026 Hatchgrid Private Limited. All rights reserved.
+            </div>
+        </footer>
+    </div>
+
+</body>
+</html>
